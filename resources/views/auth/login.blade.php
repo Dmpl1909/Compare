@@ -17,6 +17,7 @@
             <label for="password" class="text-sm text-slate-300">Password</label>
             <input id="password" name="password" type="password" required class="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-50 focus:border-indigo-500 focus:outline-none" />
         </div>
+        <p><a href="{{ route('password.request') }}">Forgot your password?</a></p>
         <label class="inline-flex items-center gap-2 text-sm text-slate-300">
             <input type="checkbox" name="remember" class="rounded border-slate-700 bg-slate-950 text-indigo-500 focus:ring-indigo-500" />
             Lembrar sessão
