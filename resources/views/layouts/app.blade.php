@@ -14,7 +14,9 @@
                 <a href="{{ route('games.index') }}" class="text-slate-300 hover:text-indigo-200">Jogos</a>
                 @auth
                     <a href="{{ route('favorites.index') }}" class="text-slate-300 hover:text-indigo-200">Favoritos</a>
-                    <a href="{{ route('dashboard') }}" class="text-slate-300 hover:text-indigo-200">Dashboard</a>
+                    @if(auth()->user()->role === 'gestor' || auth()->user()->role === 'admin')
+                        <a href="{{ route('dashboard') }}" class="text-slate-300 hover:text-indigo-200">Dashboard</a>
+                    @endif
                 @endauth
                 @auth
                     <div class="relative">

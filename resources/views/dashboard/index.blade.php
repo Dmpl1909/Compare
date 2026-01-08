@@ -36,8 +36,7 @@
             <div class="mt-4 flex flex-wrap gap-3 text-sm">
                 <a href="{{ route('home') }}" class="rounded-full border border-indigo-400 px-4 py-2 text-indigo-100 hover:bg-indigo-500 hover:text-slate-900">Ver catálogo</a>
                 <a href="{{ route('home', ['q' => '']) }}" class="rounded-full border border-emerald-400 px-4 py-2 text-emerald-100 hover:bg-emerald-500 hover:text-slate-900">Pesquisar jogos</a>
-                @if($user->isAdmin() || $user->isManager())
-                    <a href="{{ route('manage.products.index') }}" class="rounded-full border border-amber-400 px-4 py-2 text-amber-100 hover:bg-amber-400 hover:text-slate-900">Gerir jogos</a>
+                @if($user->isAdmin() || $user->isManager())                    <a href="{{ route('manage.products.index') }}" class="rounded-full border border-purple-400 px-4 py-2 text-purple-100 hover:bg-purple-400 hover:text-slate-900">Gerir jogos</a>                    <a href="{{ route('manage.users.index') }}" class="rounded-full border border-amber-400 px-4 py-2 text-amber-100 hover:bg-amber-400 hover:text-slate-900">Gerir utilizadores</a>
                 @endif
             </div>
         </div>

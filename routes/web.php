@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ManageProductController;
+use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\PriceAlertController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserFavoritesController;
@@ -27,7 +28,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::middleware('role:gestor,admin')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/perfil', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/favoritos', [UserFavoritesController::class, 'index'])->name('favorites.index');
@@ -38,9 +39,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/alerts/{product}', [PriceAlertController::class, 'destroy'])->name('alerts.destroy');
 });
 
+// Gestão (gestor e admin)
 Route::middleware(['auth', 'role:gestor,admin'])->prefix('gestao')->name('manage.')->group(function () {
+    // Gestão de jogos (gestor e admin podem adicionar/remover)
     Route::get('/produtos', [ManageProductController::class, 'index'])->name('products.index');
     Route::get('/produtos/criar', [ManageProductController::class, 'create'])->name('products.create');
     Route::post('/produtos', [ManageProductController::class, 'store'])->name('products.store');
     Route::delete('/produtos/{product}', [ManageProductController::class, 'destroy'])->name('products.destroy');
+    
+    // Gestão de utilizadores (gestor e admin podem visualizar, apenas admin pode alterar permissões)
+    Route::get('/utilizadores', [ManageUserController::class, 'index'])->name('users.index');
+    Route::put('/utilizadores/{user}', [ManageUserController::class, 'update'])->name('users.update');
+    Route::delete('/utilizadores/{user}', [ManageUserController::class, 'destroy'])->name('users.destroy');
 });

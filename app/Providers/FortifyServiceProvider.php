@@ -45,9 +45,11 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
 
+        // Views do Fortify apenas para reset de password
         Fortify::requestPasswordResetLinkView(function () {
             return view('auth.recover');
         });
+        
         Fortify::resetPasswordView(function ($request) {
             return view('auth.newpass', ['request' => $request]);
         });
