@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\PriceAlertController;
 use App\Http\Controllers\ProfileController;
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/produtos/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// Rotas para jogos
+Route::get('/jogos', [GameController::class, 'index'])->name('games.index');
+Route::get('/api/games/deals', [GameController::class, 'getDeals'])->name('api.games.deals');
+Route::get('/api/games/stores', [GameController::class, 'getStores'])->name('api.games.stores');
 
 Route::middleware('guest')->group(function () {
     Route::get('/registar', [AuthController::class, 'showRegisterForm'])->name('register');
