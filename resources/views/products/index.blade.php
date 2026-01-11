@@ -5,11 +5,11 @@
     <section class="space-y-4">
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
-                <h1 class="text-3xl font-semibold tracking-tight">Loja de Jogos · Comparador</h1>
-                <p class="text-sm text-slate-400">Descobre jogos e compara preços em várias lojas online.</p>
+                <h1 class="text-3xl font-semibold tracking-tight">Catálogo de Jogos</h1>
+                <p class="text-sm text-slate-400">Jogos adicionados pelos gestores - compare preços em várias lojas.</p>
             </div>
         </div>
-        <form method="GET" action="{{ route('home') }}" class="flex flex-col gap-3 sm:flex-row">
+        <form method="GET" action="{{ route('products.catalog') }}" class="flex flex-col gap-3 sm:flex-row">
             <label class="sr-only" for="q">Pesquisa</label>
             <input id="q" name="q" value="{{ $term }}" placeholder="Pesquisar por título, editora ou SKU" class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-slate-50 focus:border-indigo-500 focus:outline-none" />
             <button type="submit" class="rounded-lg bg-indigo-500 px-6 py-3 font-semibold text-slate-50 transition hover:bg-indigo-400">Procurar</button>

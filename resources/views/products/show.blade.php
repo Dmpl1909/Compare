@@ -9,7 +9,7 @@
                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="h-full w-full object-cover" />
                     </div>
                 @endif
-                <a href="{{ route('home') }}" class="text-sm text-indigo-300 hover:text-indigo-200">← Voltar à pesquisa</a>
+                <a href="{{ route('products.catalog') }}" class="text-sm text-indigo-300 hover:text-indigo-200">← Voltar ao catálogo</a>
                 <h1 class="text-3xl font-semibold tracking-tight">{{ $product->name }}</h1>
                 <p class="text-sm text-slate-400">{{ $product->brand ?? 'Marca desconhecida' }} @if($product->sku) · SKU {{ $product->sku }} @endif</p>
         </div>

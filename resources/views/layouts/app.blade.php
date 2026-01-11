@@ -11,7 +11,8 @@
         <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
             <a href="{{ route('home') }}" class="text-xl font-semibold tracking-tight">Compare</a>
             <nav class="flex items-center gap-4 text-sm">
-                <a href="{{ route('games.index') }}" class="text-slate-300 hover:text-indigo-200">Jogos</a>
+                <a href="{{ route('products.catalog') }}" class="text-slate-300 hover:text-indigo-200">Jogos</a>
+                <a href="{{ route('games.deals') }}" class="text-slate-300 hover:text-indigo-200">Promoções</a>
                 @auth
                     <a href="{{ route('favorites.index') }}" class="text-slate-300 hover:text-indigo-200">Favoritos</a>
                     @if(auth()->user()->role === 'gestor' || auth()->user()->role === 'admin')
