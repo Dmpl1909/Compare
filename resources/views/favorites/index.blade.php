@@ -8,7 +8,7 @@
             <h1 class="text-3xl font-semibold tracking-tight">Os teus jogos guardados</h1>
             <p class="text-slate-300">Gerir e abrir os jogos que marcaste como favoritos.</p>
         </div>
-        <a href="{{ route('home') }}" class="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-indigo-400 hover:text-indigo-200">Voltar ao catálogo</a>
+        <a href="{{ route('products.catalog') }}" class="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-indigo-400 hover:text-indigo-200">Voltar ao catálogo</a>
     </div>
 
     <div class="grid gap-4 lg:grid-cols-3 md:grid-cols-2">

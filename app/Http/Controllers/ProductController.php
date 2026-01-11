@@ -8,7 +8,21 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    public function index(Request $request): View
+    public function home(): View
+    {
+        $products = Product::with(['offers' => function ($query) {
+            $query->with('source')->orderBy('price');
+        }])
+            ->orderBy('created_at', 'desc')
+            ->limit(12)
+            ->get();
+
+        return view('home', [
+            'products' => $products,
+        ]);
+    }
+
+    public function catalog(Request $request): View
     {
         $term = (string) $request->input('q', '');
 
@@ -40,6 +54,11 @@ class ProductController extends Controller
             'alertsByProduct' => $alertsByProduct,
             'term' => $term,
         ]);
+    }
+
+    public function index(Request $request): View
+    {
+        return $this->catalog($request);
     }
 
     public function show(Product $product): View

@@ -11,9 +11,13 @@
         <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
             <a href="{{ route('home') }}" class="text-xl font-semibold tracking-tight">Compare</a>
             <nav class="flex items-center gap-4 text-sm">
+                <a href="{{ route('products.catalog') }}" class="text-slate-300 hover:text-indigo-200">Jogos</a>
+                <a href="{{ route('games.deals') }}" class="text-slate-300 hover:text-indigo-200">Promoções</a>
                 @auth
                     <a href="{{ route('favorites.index') }}" class="text-slate-300 hover:text-indigo-200">Favoritos</a>
-                    <a href="{{ route('dashboard') }}" class="text-slate-300 hover:text-indigo-200">Dashboard</a>
+                    @if(auth()->user()->role === 'gestor' || auth()->user()->role === 'admin')
+                        <a href="{{ route('dashboard') }}" class="text-slate-300 hover:text-indigo-200">Dashboard</a>
+                    @endif
                 @endauth
                 @auth
                     <div class="relative">
@@ -57,6 +61,9 @@
         <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             Projeto final · Comparador de preços online
         </div>
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <a href="https://www.livroreclamacoes.pt/inicio/" target="_blank" class="hover:text-indigo-300">Livro de Reclamações</a>
+            </div>
     </footer>
 </body>
 </html>

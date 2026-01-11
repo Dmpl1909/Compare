@@ -3,15 +3,23 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\ManageProductController;
+use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\PriceAlertController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserFavoritesController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [ProductController::class, 'index'])->name('home');
+Route::get('/', [ProductController::class, 'home'])->name('home');
+Route::get('/jogos', [ProductController::class, 'catalog'])->name('products.catalog');
 Route::get('/produtos/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// Rotas para jogos em promoção (CheapShark API)
+Route::get('/jogos/promocoes', [GameController::class, 'index'])->name('games.deals');
+Route::get('/api/games/deals', [GameController::class, 'getDeals'])->name('api.games.deals');
+Route::get('/api/games/stores', [GameController::class, 'getStores'])->name('api.games.stores');
 
 Route::middleware('guest')->group(function () {
     Route::get('/registar', [AuthController::class, 'showRegisterForm'])->name('register');
@@ -21,7 +29,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::middleware('role:gestor,admin')->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/perfil', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/favoritos', [UserFavoritesController::class, 'index'])->name('favorites.index');
@@ -32,9 +40,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/alerts/{product}', [PriceAlertController::class, 'destroy'])->name('alerts.destroy');
 });
 
+// Gestão (gestor e admin)
 Route::middleware(['auth', 'role:gestor,admin'])->prefix('gestao')->name('manage.')->group(function () {
+    // Gestão de jogos (gestor e admin podem adicionar/remover)
     Route::get('/produtos', [ManageProductController::class, 'index'])->name('products.index');
     Route::get('/produtos/criar', [ManageProductController::class, 'create'])->name('products.create');
     Route::post('/produtos', [ManageProductController::class, 'store'])->name('products.store');
     Route::delete('/produtos/{product}', [ManageProductController::class, 'destroy'])->name('products.destroy');
+    
+    // Gestão de utilizadores (gestor e admin podem visualizar, apenas admin pode alterar permissões)
+    Route::get('/utilizadores', [ManageUserController::class, 'index'])->name('users.index');
+    Route::put('/utilizadores/{user}', [ManageUserController::class, 'update'])->name('users.update');
+    Route::delete('/utilizadores/{user}', [ManageUserController::class, 'destroy'])->name('users.destroy');
 });
