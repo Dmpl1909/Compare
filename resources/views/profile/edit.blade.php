@@ -5,12 +5,70 @@
     <div>
         <p class="text-sm text-slate-400">Perfil</p>
         <h1 class="text-3xl font-semibold tracking-tight">Os teus dados</h1>
-        <p class="text-slate-300">Edita o teu perfil e revê os teus favoritos.</p>
+        <p class="text-slate-300">Visualiza e edita o teu perfil.</p>
     </div>
 
-    <form action="{{ route('profile.update') }}" method="POST" class="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg">
+    <!-- Modo de Visualização -->
+    <div id="view-mode" class="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg">
+        <div class="flex items-center gap-6 mb-6">
+            <div class="flex-shrink-0">
+                @if($user->avatar)
+                    <img src="{{ asset($user->avatar) }}" alt="Avatar" class="h-24 w-24 rounded-full object-cover border-2 border-slate-700">
+                @else
+                    <div class="h-24 w-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-indigo-400 shadow-lg">
+                        <span class="text-3xl text-white font-bold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
+                    </div>
+                @endif
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold text-slate-50">{{ $user->name }}</h2>
+                <p class="text-sm text-slate-400">{{ $user->email }}</p>
+            </div>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+            <div class="space-y-2">
+                <label class="text-sm text-slate-400">Nome</label>
+                <p class="text-lg text-slate-50">{{ $user->name }}</p>
+            </div>
+            <div class="space-y-2">
+                <label class="text-sm text-slate-400">Email</label>
+                <p class="text-lg text-slate-50">{{ $user->email }}</p>
+            </div>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+            <div class="space-y-2">
+                <label class="text-sm text-slate-400">Password</label>
+                <p class="text-lg text-slate-50">••••••••</p>
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <button onclick="enableEditMode()" type="button" class="rounded-full bg-indigo-500 px-5 py-2 font-semibold text-slate-50 transition hover:bg-indigo-400">Editar Perfil</button>
+        </div>
+    </div>
+
+    <!-- Modo de Edição -->
+    <form id="edit-mode" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="hidden space-y-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg">
         @csrf
         @method('PUT')
+        
+        <!-- Avatar Upload -->
+        <div class="flex items-center gap-6 mb-6">
+            <div class="flex-shrink-0">
+                @if($user->avatar)
+                    <img id="avatar-preview" src="{{ asset($user->avatar) }}" alt="Avatar" class="h-24 w-24 rounded-full object-cover border-2 border-slate-700">
+                @else
+                    <div id="avatar-preview" class="h-24 w-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-indigo-400 shadow-lg">
+                        <span class="text-3xl text-white font-bold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
+                    </div>
+                @endif
+            </div>
+            <div class="space-y-2">
+                <label class="text-sm text-slate-300" for="avatar">Imagem de Perfil</label>
+                <input id="avatar" name="avatar" type="file" accept="image/*" onchange="previewAvatar(event)" class="block w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-500 file:text-white hover:file:bg-indigo-400 cursor-pointer" />
+                <p class="text-xs text-slate-500">JPG, PNG ou GIF (max. 2MB)</p>
+            </div>
+        </div>
+
         <div class="grid gap-4 md:grid-cols-2">
             <div class="space-y-2">
                 <label class="text-sm text-slate-300" for="name">Nome</label>
@@ -33,7 +91,7 @@
         </div>
         <div class="flex gap-3">
             <button type="submit" class="rounded-full bg-indigo-500 px-5 py-2 font-semibold text-slate-50 transition hover:bg-indigo-400">Guardar</button>
-            <a href="{{ route('dashboard') }}" class="rounded-full border border-slate-700 px-5 py-2 text-slate-300 hover:border-indigo-400 hover:text-indigo-200">Cancelar</a>
+            <button onclick="cancelEdit(event)" type="button" class="rounded-full border border-slate-700 px-5 py-2 text-slate-300 hover:border-indigo-400 hover:text-indigo-200">Cancelar</button>
         </div>
     </form>
 
@@ -66,4 +124,33 @@
         </div>
     </div>
 </div>
+
+<script>
+function enableEditMode() {
+    document.getElementById('view-mode').classList.add('hidden');
+    document.getElementById('edit-mode').classList.remove('hidden');
+}
+
+function cancelEdit(event) {
+    event.preventDefault();
+    document.getElementById('edit-mode').classList.add('hidden');
+    document.getElementById('view-mode').classList.remove('hidden');
+}
+
+function previewAvatar(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('avatar-preview');
+            preview.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'h-24 w-24 rounded-full object-cover border-2 border-slate-700';
+            preview.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+    }
+}
+</script>
 @endsection

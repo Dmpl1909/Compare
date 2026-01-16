@@ -89,7 +89,13 @@
                 <!-- Desktop Auth Buttons -->
                 @auth
                     <div class="hidden xl:flex items-center gap-2 rounded-full bg-emerald-100 dark:bg-teal-900/50 px-3 py-1.5 border border-emerald-200 dark:border-teal-700">
-                        <div class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        @if(auth()->user()->avatar)
+                            <img src="{{ asset(auth()->user()->avatar) }}" alt="Avatar" class="h-6 w-6 rounded-full object-cover border border-emerald-300 dark:border-teal-600">
+                        @else
+                            <div class="h-6 w-6 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                                <span class="text-xs text-white font-bold">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                            </div>
+                        @endif
                         <span class="text-xs text-emerald-900 dark:text-teal-200 font-medium">{{ auth()->user()->name }}</span>
                     </div>
                     <a href="{{ route('profile.edit') }}" class="hidden sm:block rounded-xl border-2 border-emerald-300 dark:border-teal-600 bg-white dark:bg-teal-900/30 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-emerald-900 dark:text-teal-200 font-medium transition hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-teal-800/50 hover:scale-105">Perfil</a>
@@ -127,7 +133,13 @@
                     <div class="pt-2 mt-2 border-t border-emerald-200/50 dark:border-teal-500/30 space-y-2">
                         <div class="px-4 py-2 rounded-xl bg-emerald-100 dark:bg-teal-900/50 border border-emerald-200 dark:border-teal-700">
                             <div class="flex items-center gap-2">
-                                <div class="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                @if(auth()->user()->avatar)
+                                    <img src="{{ asset(auth()->user()->avatar) }}" alt="Avatar" class="h-8 w-8 rounded-full object-cover border border-emerald-300 dark:border-teal-600">
+                                @else
+                                    <div class="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                                        <span class="text-sm text-white font-bold">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+                                    </div>
+                                @endif
                                 <span class="text-sm text-emerald-900 dark:text-teal-200 font-medium">{{ auth()->user()->name }}</span>
                             </div>
                         </div>

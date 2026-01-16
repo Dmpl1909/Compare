@@ -28,6 +28,7 @@ class ProfileController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
         $user->name = $validated['name'];
@@ -35,6 +36,19 @@ class ProfileController extends Controller
 
         if (!empty($validated['password'])) {
             $user->password = bcrypt($validated['password']);
+        }
+
+        if ($request->hasFile('avatar')) {
+            // Apagar avatar antigo se existir
+            if ($user->avatar && file_exists(public_path($user->avatar))) {
+                unlink(public_path($user->avatar));
+            }
+
+            // Guardar novo avatar
+            $file = $request->file('avatar');
+            $filename = 'avatar_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('avatars'), $filename);
+            $user->avatar = 'avatars/' . $filename;
         }
 
         $user->save();
