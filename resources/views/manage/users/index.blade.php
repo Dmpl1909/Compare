@@ -66,8 +66,14 @@
                         <tr class="group transition hover:bg-slate-800/30">
                             <td class="px-6 py-5">
                                 <div class="flex items-center gap-3">
-                                    <div class="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 font-bold text-white shadow-lg shadow-cyan-500/30 transition group-hover:scale-110 group-hover:shadow-cyan-500/50">
-                                        {{ strtoupper(substr($user->name, 0, 1)) }}
+                                    <div class="relative flex-shrink-0">
+                                        @if($user->avatar)
+                                            <img src="{{ asset($user->avatar) }}" alt="{{ $user->name }}" class="h-12 w-12 rounded-xl object-cover border-2 border-cyan-500/50 shadow-lg shadow-cyan-500/30 transition group-hover:scale-110 group-hover:shadow-cyan-500/50 group-hover:border-cyan-500">
+                                        @else
+                                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 font-bold text-white shadow-lg shadow-cyan-500/30 transition group-hover:scale-110 group-hover:shadow-cyan-500/50">
+                                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                                            </div>
+                                        @endif
                                         @if($user->id === auth()->id())
                                             <div class="absolute -right-1 -top-1 h-4 w-4 rounded-full bg-emerald-500 border-2 border-slate-900"></div>
                                         @endif
