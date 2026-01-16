@@ -70,6 +70,35 @@ class ManageProductController extends Controller
         return redirect()->route('manage.products.index')->with('status', 'Jogo criado com sucesso.');
     }
 
+    public function edit(Product $product): View
+    {
+        $product->load('offers.source');
+        return view('manage.products.edit', [
+            'product' => $product,
+        ]);
+    }
+
+    public function update(Request $request, Product $product): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'brand' => ['nullable', 'string', 'max:255'],
+            'sku' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'image_url' => ['nullable', 'url', 'max:500'],
+        ]);
+
+        $product->update([
+            'name' => $validated['name'],
+            'brand' => $validated['brand'] ?? null,
+            'sku' => $validated['sku'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
+        ]);
+
+        return redirect()->route('manage.products.index')->with('status', 'Jogo atualizado com sucesso.');
+    }
+
     public function destroy(Product $product): RedirectResponse
     {
         $product->delete();
