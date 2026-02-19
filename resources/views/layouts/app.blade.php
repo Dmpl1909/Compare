@@ -64,7 +64,7 @@
             <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium">
                 <a href="{{ route('products.catalog') }}" class="text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-emerald-500 after:via-teal-500 after:to-cyan-500 after:transition-all hover:after:w-full">Catálogo</a>
                 <a href="{{ route('games.deals') }}" class="text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-emerald-500 after:via-teal-500 after:to-cyan-500 after:transition-all hover:after:w-full">Promoções</a>
-                <a href="{{ route('contact') }}" class="text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-emerald-500 after:via-teal-500 after:to-cyan-500 after:transition-all hover:after:w-full">Contato</a>
+                <a href="{{ route('contact.form') }}" class="text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-emerald-500 after:via-teal-500 after:to-cyan-500 after:transition-all hover:after:w-full">Contato</a>
                 @auth
                     <a href="{{ route('favorites.index') }}" class="text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-emerald-500 after:via-teal-500 after:to-cyan-500 after:transition-all hover:after:w-full">Favoritos</a>
                     @if(auth()->user()->role === 'gestor' || auth()->user()->role === 'admin')
@@ -125,7 +125,7 @@
             <nav class="mx-auto max-w-7xl px-4 py-4 space-y-2">
                 <a href="{{ route('products.catalog') }}" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-teal-800/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all font-medium">Catálogo</a>
                 <a href="{{ route('games.deals') }}" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-teal-800/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all font-medium">Promoções</a>
-                <a href="{{ route('contact') }}" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-teal-800/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all font-medium">Contato</a>
+                <a href="{{ route('contact.form') }}" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-teal-800/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all font-medium">Contato</a>
                 @auth
                     <a href="{{ route('favorites.index') }}" class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-emerald-100 dark:hover:bg-teal-800/50 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all font-medium">Favoritos</a>
                     @if(auth()->user()->role === 'gestor' || auth()->user()->role === 'admin')
@@ -217,6 +217,8 @@
                 <div>
                     <h3 class="font-semibold mb-4 text-slate-800 dark:text-slate-200">Legal</h3>
                     <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                        <li><a href="{{ route('terms') }}" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Termos e Condições</a></li>
+                        <li><a href="{{ route('privacy') }}" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Política de Privacidade</a></li>
                         <li><a href="https://www.livroreclamacoes.pt/inicio/" target="_blank" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition flex items-center gap-2">
                             Livro de Reclamações
                             <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
