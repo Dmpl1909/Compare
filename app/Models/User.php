@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use App\Models\Favorite;
 use App\Models\PriceAlert;
 
@@ -68,5 +69,26 @@ class User extends Authenticatable
     public function priceAlerts()
     {
         return $this->hasMany(PriceAlert::class);
+    }
+
+    public function getAvatarUrlAttribute(): string
+    {
+        $defaultAvatar = asset('avatars/default-avatar.svg');
+
+        if (blank($this->avatar)) {
+            return $defaultAvatar;
+        }
+
+        if (Str::startsWith($this->avatar, ['http://', 'https://', '//', 'data:'])) {
+            return $this->avatar;
+        }
+
+        $avatarPath = ltrim($this->avatar, '/');
+
+        if (! file_exists(public_path($avatarPath))) {
+            return $defaultAvatar;
+        }
+
+        return asset($avatarPath);
     }
 }

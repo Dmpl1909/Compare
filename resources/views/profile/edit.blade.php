@@ -12,13 +12,7 @@
     <div id="view-mode" class="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg">
         <div class="flex items-center gap-6 mb-6">
             <div class="flex-shrink-0">
-                @if($user->avatar)
-                    <img src="{{ asset($user->avatar) }}" alt="Avatar" class="h-24 w-24 rounded-full object-cover border-2 border-slate-700">
-                @else
-                    <div class="h-24 w-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-indigo-400 shadow-lg">
-                        <span class="text-3xl text-white font-bold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
-                    </div>
-                @endif
+                <img src="{{ $user->avatar_url }}" alt="Avatar" class="h-24 w-24 rounded-full object-cover border-2 border-slate-700">
             </div>
             <div>
                 <h2 class="text-xl font-semibold text-slate-50">{{ $user->name }}</h2>
@@ -54,13 +48,7 @@
         <!-- Avatar Upload -->
         <div class="flex items-center gap-6 mb-6">
             <div class="flex-shrink-0">
-                @if($user->avatar)
-                    <img id="avatar-preview" src="{{ asset($user->avatar) }}" alt="Avatar" class="h-24 w-24 rounded-full object-cover border-2 border-slate-700">
-                @else
-                    <div id="avatar-preview" class="h-24 w-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-indigo-400 shadow-lg">
-                        <span class="text-3xl text-white font-bold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
-                    </div>
-                @endif
+                <img id="avatar-preview" src="{{ $user->avatar_url }}" alt="Avatar" class="h-24 w-24 rounded-full object-cover border-2 border-slate-700">
             </div>
             <div class="space-y-2">
                 <label class="text-sm text-slate-300" for="avatar">Imagem de Perfil</label>
@@ -143,11 +131,7 @@ function previewAvatar(event) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const preview = document.getElementById('avatar-preview');
-            preview.innerHTML = '';
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.className = 'h-24 w-24 rounded-full object-cover border-2 border-slate-700';
-            preview.appendChild(img);
+            preview.src = e.target.result;
         }
         reader.readAsDataURL(file);
     }

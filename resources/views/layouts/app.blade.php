@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-PT" class="dark">
 <head>
+    @php
+        $pageSymbolPath = collect([
+            'images/imagem_compare.svg',
+            'images/imagem_compare.png',
+            'images/imagem_compare.webp',
+            'imagem_compare.svg',
+            'imagem_compare.png',
+            'favicon.ico',
+        ])->first(fn ($path) => file_exists(public_path($path)));
+    @endphp
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compare - Comparador de Preços de Jogos</title>
+    @if($pageSymbolPath)
+        <link rel="icon" href="{{ asset($pageSymbolPath) }}" />
+    @endif
     <script>
         // Prevent flash of wrong theme
         (function() {
@@ -54,10 +67,29 @@
         <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="group flex items-center gap-2 sm:gap-3">
-                <div class="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-600 font-bold text-white shadow-lg shadow-emerald-500/50 transition group-hover:shadow-emerald-500/70 group-hover:scale-110">
-                    C
-                </div>
-                <span class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">Compare</span>
+                @php
+                    $logoPath = collect([
+                        'images/logo_compare.svg',
+                        'images/logo_compare.png',
+                        'images/logo_compare.webp',
+                        'logo_compare.svg',
+                        'logo_compare.png',
+                        'images/logo.svg',
+                        'images/logo.png',
+                        'images/logo.webp',
+                        'logo.svg',
+                        'logo.png',
+                    ])
+                        ->first(fn ($path) => file_exists(public_path($path)));
+                @endphp
+                @if($logoPath)
+                    <img src="{{ asset($logoPath) }}" alt="Compare" class="h-12 sm:h-14 w-auto object-contain" />
+                @else
+                    <div class="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-600 font-bold text-white shadow-lg shadow-emerald-500/50 transition group-hover:shadow-emerald-500/70 group-hover:scale-110">
+                        C
+                    </div>
+                    <span class="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent">Compare</span>
+                @endif
             </a>
 
             <!-- Desktop Navigation -->
@@ -78,13 +110,7 @@
                 <!-- Desktop Auth Buttons -->
                 @auth
                     <div class="hidden xl:flex items-center gap-2 rounded-full bg-emerald-100 dark:bg-teal-900/50 px-3 py-1.5 border border-emerald-200 dark:border-teal-700">
-                        @if(auth()->user()->avatar)
-                            <img src="{{ asset(auth()->user()->avatar) }}" alt="Avatar" class="h-6 w-6 rounded-full object-cover border border-emerald-300 dark:border-teal-600">
-                        @else
-                            <div class="h-6 w-6 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
-                                <span class="text-xs text-white font-bold">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
-                            </div>
-                        @endif
+                        <img src="{{ auth()->user()->avatar_url }}" alt="Avatar" class="h-6 w-6 rounded-full object-cover border border-emerald-300 dark:border-teal-600">
                         <span class="text-xs text-emerald-900 dark:text-teal-200 font-medium">{{ auth()->user()->name }}</span>
                     </div>
                     <a href="{{ route('profile.edit') }}" class="hidden sm:block rounded-xl border-2 border-emerald-300 dark:border-teal-600 bg-white dark:bg-teal-900/30 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-emerald-900 dark:text-teal-200 font-medium transition hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-teal-800/50 hover:scale-105">Perfil</a>
@@ -123,13 +149,7 @@
                     <div class="pt-2 mt-2 border-t border-emerald-200/50 dark:border-teal-500/30 space-y-2">
                         <div class="px-4 py-2 rounded-xl bg-emerald-100 dark:bg-teal-900/50 border border-emerald-200 dark:border-teal-700">
                             <div class="flex items-center gap-2">
-                                @if(auth()->user()->avatar)
-                                    <img src="{{ asset(auth()->user()->avatar) }}" alt="Avatar" class="h-8 w-8 rounded-full object-cover border border-emerald-300 dark:border-teal-600">
-                                @else
-                                    <div class="h-8 w-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
-                                        <span class="text-sm text-white font-bold">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
-                                    </div>
-                                @endif
+                                <img src="{{ auth()->user()->avatar_url }}" alt="Avatar" class="h-8 w-8 rounded-full object-cover border border-emerald-300 dark:border-teal-600">
                                 <span class="text-sm text-emerald-900 dark:text-teal-200 font-medium">{{ auth()->user()->name }}</span>
                             </div>
                         </div>
