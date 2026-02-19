@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\GameController;
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/jogos', [ProductController::class, 'catalog'])->name('products.catalog');
 Route::get('/produtos/{product}', [ProductController::class, 'show'])->name('products.show');
+
+// Contactos
+Route::get('/contacto', [ContactController::class, 'show'])->name('contact.form');
+Route::post('/contacto', [ContactController::class, 'submit'])->name('contact.submit');
+Route::view('/termos', 'legal.terms')->name('terms');
+Route::view('/politica-privacidade', 'legal.privacy')->name('privacy');
 
 // Rotas para jogos em promoção (CheapShark API)
 Route::get('/jogos/promocoes', [GameController::class, 'index'])->name('games.deals');
@@ -53,3 +60,5 @@ Route::middleware(['auth', 'role:gestor,admin'])->prefix('gestao')->name('manage
     Route::put('/utilizadores/{user}', [ManageUserController::class, 'update'])->name('users.update');
     Route::delete('/utilizadores/{user}', [ManageUserController::class, 'destroy'])->name('users.destroy');
 });
+
+Route::fallback(fn () => redirect()->route('home'));

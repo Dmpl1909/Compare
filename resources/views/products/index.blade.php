@@ -6,13 +6,13 @@
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
                 <h1 class="text-3xl font-semibold tracking-tight">Catálogo de Jogos</h1>
-                <p class="text-sm text-slate-400">Jogos adicionados pelos gestores - compare preços em várias lojas.</p>
+                <p class="text-sm text-gray-500">Jogos adicionados pelos gestores - compare preços em várias lojas.</p>
             </div>
         </div>
         <form method="GET" action="{{ route('products.catalog') }}" class="flex flex-col gap-3 sm:flex-row">
             <label class="sr-only" for="q">Pesquisa</label>
-            <input id="q" name="q" value="{{ $term }}" placeholder="Pesquisar por título, editora ou SKU" class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-slate-50 focus:border-indigo-500 focus:outline-none" />
-            <button type="submit" class="rounded-lg bg-indigo-500 px-6 py-3 font-semibold text-slate-50 transition hover:bg-indigo-400">Procurar</button>
+            <input id="q" name="q" value="{{ $term }}" placeholder="Pesquisar por título, editora ou SKU" class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-indigo-500 focus:outline-none" />
+            <button type="submit" class="rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white transition hover:bg-indigo-700">Procurar</button>
         </form>
     </section>
 
@@ -23,26 +23,26 @@
                 $isFavorite = in_array($product->id, $favoriteIds);
                 $alert = $alertsByProduct[$product->id] ?? null;
             @endphp
-            <article class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-lg">
+            <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-lg">
                 <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                     <div class="space-y-2">
                         <h2 class="text-xl font-semibold">
-                            <a href="{{ route('products.show', $product) }}" class="hover:text-indigo-300">{{ $product->name }}</a>
+                            <a href="{{ route('products.show', $product) }}" class="hover:text-indigo-700">{{ $product->name }}</a>
                         </h2>
-                        <p class="text-sm text-slate-400">{{ $product->brand ?? 'Marca desconhecida' }} @if($product->sku) · SKU {{ $product->sku }} @endif</p>
-                        <p class="text-sm text-slate-300">{{ $product->description }}</p>
-                        <div class="flex flex-wrap gap-2 text-xs text-slate-400">
+                        <p class="text-sm text-gray-500">{{ $product->brand ?? 'Marca desconhecida' }} @if($product->sku) · SKU {{ $product->sku }} @endif</p>
+                        <p class="text-sm text-gray-600">{{ $product->description }}</p>
+                        <div class="flex flex-wrap gap-2 text-xs text-gray-500">
                             @foreach ($product->offers as $offer)
-                                <span class="rounded-full border border-slate-700 px-3 py-1">{{ $offer->source->name }} · €{{ number_format($offer->price, 2, ',', '.') }}</span>
+                                <span class="rounded-full border border-gray-300 px-3 py-1">{{ $offer->source->name }} · €{{ number_format($offer->price, 2, ',', '.') }}</span>
                             @endforeach
                         </div>
                     </div>
                     <div class="flex flex-col items-end gap-3 md:min-w-[220px]">
                         <div class="text-right">
-                            <p class="text-sm text-slate-400">Melhor preço</p>
-                            <p class="text-3xl font-semibold text-emerald-300">{{ $bestOffer ? '€' . number_format($bestOffer->price, 2, ',', '.') : '—' }}</p>
+                            <p class="text-sm text-gray-500">Melhor preço</p>
+                            <p class="text-3xl font-semibold text-emerald-600">{{ $bestOffer ? '€' . number_format($bestOffer->price, 2, ',', '.') : '—' }}</p>
                             @if($bestOffer)
-                                <p class="text-xs text-slate-500">{{ $bestOffer->source->name }}</p>
+                                <p class="text-xs text-gray-400">{{ $bestOffer->source->name }}</p>
                             @endif
                         </div>
                         <div class="flex flex-wrap justify-end gap-2">
@@ -52,7 +52,7 @@
                                     @if($isFavorite)
                                         @method('DELETE')
                                     @endif
-                                    <button type="submit" class="rounded-full border border-slate-700 px-3 py-1 text-sm transition hover:border-indigo-400 hover:text-indigo-200">
+                                    <button type="submit" class="rounded-full border border-gray-300 px-3 py-1 text-sm transition hover:border-indigo-500 hover:text-indigo-700">
                                                 <div class="flex gap-4">
                                                     @if($product->image_url)
                                                         <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg border border-slate-800 bg-slate-950">
@@ -66,21 +66,21 @@
                                     @csrf
                                     @if($alert)
                                         @method('DELETE')
-                                        <button type="submit" class="rounded-full border border-amber-500/80 px-3 py-1 text-sm text-amber-200 transition hover:border-amber-300">Remover alerta</button>
+                                        <button type="submit" class="rounded-full border border-amber-500/80 px-3 py-1 text-sm text-amber-600 transition hover:border-amber-400">Remover alerta</button>
                                     @else
-                                        <input type="number" step="0.01" name="target_price" placeholder="€ alvo" class="w-28 rounded-lg border border-slate-700 bg-slate-950 px-3 py-1 text-sm focus:border-indigo-500 focus:outline-none" />
-                                        <button type="submit" class="rounded-full bg-amber-500 px-3 py-1 text-sm font-semibold text-slate-900 transition hover:bg-amber-400">Criar alerta</button>
+                                        <input type="number" step="0.01" name="target_price" placeholder="€ alvo" class="w-28 rounded-lg border border-gray-300 bg-white px-3 py-1 text-sm focus:border-indigo-500 focus:outline-none" />
+                                        <button type="submit" class="rounded-full bg-amber-500 px-3 py-1 text-sm font-semibold text-white transition hover:bg-amber-600">Criar alerta</button>
                                     @endif
                                 </form>
                             @else
-                                <a href="{{ route('login') }}" class="rounded-full bg-indigo-500 px-3 py-1 text-sm font-semibold text-slate-50 transition hover:bg-indigo-400">Inicia sessão para guardar</a>
+                                <a href="{{ route('login') }}" class="rounded-full bg-indigo-600 px-3 py-1 text-sm font-semibold text-white transition hover:bg-indigo-700">Inicia sessão para guardar</a>
                             @endauth
                         </div>
                     </div>
                 </div>
             </article>
         @empty
-            <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 text-center text-slate-400">Sem resultados para já.</div>
+            <div class="rounded-xl border border-gray-200 bg-white p-6 text-center text-gray-500">Sem resultados para já.</div>
         @endforelse
 
         <div>

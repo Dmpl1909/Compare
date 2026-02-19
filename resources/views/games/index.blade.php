@@ -5,25 +5,25 @@
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <h1 class="text-3xl font-bold tracking-tight">Jogos em Promoção</h1>
-            <p class="mt-1 text-slate-400">Ofertas em tempo real do CheapShark</p>
+            <p class="mt-1 text-gray-500">Ofertas em tempo real do CheapShark</p>
         </div>
 
         <div class="flex gap-2">
-            <select id="sortBy" class="rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <select id="sortBy" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 <option value="Recent">Mais Recentes</option>
                 <option value="Deal Rating">Melhor Avaliação</option>
                 <option value="Price">Menor Preço</option>
                 <option value="Savings">Maior Desconto</option>
                 <option value="Metacritic">Metacritic</option>
             </select>
-            <button id="refreshBtn" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold transition hover:bg-indigo-500">
+            <button id="refreshBtn" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold transition hover:bg-indigo-700">
                 Atualizar
             </button>
         </div>
     </div>
 
     <div id="loadingSpinner" class="flex items-center justify-center py-20">
-        <div class="h-12 w-12 animate-spin rounded-full border-4 border-slate-700 border-t-indigo-500"></div>
+        <div class="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-indigo-600"></div>
     </div>
 
     <div id="gamesGrid" class="hidden grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -31,7 +31,7 @@
     </div>
 
     <div id="loadMoreContainer" class="hidden mt-8 text-center">
-        <button id="loadMoreBtn" class="rounded-lg bg-slate-800 px-6 py-3 font-semibold transition hover:bg-slate-700">
+        <button id="loadMoreBtn" class="rounded-lg bg-gray-100 px-6 py-3 font-semibold transition hover:bg-gray-200">
             Carregar Mais
         </button>
     </div>
@@ -115,7 +115,7 @@ async function loadGames(page = 0, append = false) {
 // Criar card de jogo
 function createGameCard(game) {
     const card = document.createElement('div');
-    card.className = 'group relative overflow-hidden rounded-lg border border-slate-800 bg-slate-900/50 transition hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10';
+    card.className = 'group relative overflow-hidden rounded-lg border border-gray-200 bg-white transition hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10';
     
     const savings = Math.round(game.savings);
     const normalPrice = parseFloat(game.normalPrice);
@@ -124,42 +124,42 @@ function createGameCard(game) {
     const storeImage = stores[game.storeID]?.images?.logo || '';
 
     card.innerHTML = `
-        <div class="aspect-video overflow-hidden bg-slate-800">
+        <div class="aspect-video overflow-hidden bg-gray-100">
             <img src="${game.thumb}" alt="${game.title}" class="h-full w-full object-cover transition group-hover:scale-105" onerror="this.src='https://via.placeholder.com/300x200?text=${encodeURIComponent(game.title)}'">
         </div>
         <div class="p-4">
             <div class="mb-2 flex items-start justify-between gap-2">
                 <h3 class="line-clamp-2 text-sm font-semibold leading-tight">${game.title}</h3>
-                ${savings > 0 ? `<span class="shrink-0 rounded bg-emerald-600 px-2 py-1 text-xs font-bold">-${savings}%</span>` : ''}
+                ${savings > 0 ? `<span class="shrink-0 rounded bg-emerald-600 px-2 py-1 text-xs font-bold text-white">-${savings}%</span>` : ''}
             </div>
             
-            <div class="mb-3 flex items-center gap-2 text-xs text-slate-400">
+            <div class="mb-3 flex items-center gap-2 text-xs text-gray-500">
                 ${storeImage ? `<img src="https://www.cheapshark.com${storeImage}" alt="${storeName}" class="h-4" onerror="this.style.display='none'">` : ''}
                 <span>${storeName}</span>
             </div>
 
             <div class="flex items-center justify-between">
                 <div>
-                    ${normalPrice > salePrice ? `<div class="text-xs text-slate-400 line-through">€${normalPrice.toFixed(2)}</div>` : ''}
-                    <div class="text-lg font-bold text-emerald-400">€${salePrice.toFixed(2)}</div>
+                    ${normalPrice > salePrice ? `<div class="text-xs text-gray-500 line-through">€${normalPrice.toFixed(2)}</div>` : ''}
+                    <div class="text-lg font-bold text-emerald-600">€${salePrice.toFixed(2)}</div>
                 </div>
-                <a href="https://www.cheapshark.com/redirect?dealID=${game.dealID}" target="_blank" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold transition hover:bg-indigo-500">
+                <a href="https://www.cheapshark.com/redirect?dealID=${game.dealID}" target="_blank" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700">
                     Ver Oferta
                 </a>
             </div>
 
             ${game.metacriticScore > 0 ? `
                 <div class="mt-3 flex items-center gap-2 text-xs">
-                    <span class="text-slate-400">Metacritic:</span>
-                    <span class="font-semibold ${game.metacriticScore >= 75 ? 'text-emerald-400' : game.metacriticScore >= 50 ? 'text-yellow-400' : 'text-red-400'}">${game.metacriticScore}</span>
+                    <span class="text-gray-500">Metacritic:</span>
+                    <span class="font-semibold ${game.metacriticScore >= 75 ? 'text-emerald-600' : game.metacriticScore >= 50 ? 'text-yellow-500' : 'text-red-500'}">${game.metacriticScore}</span>
                 </div>
             ` : ''}
 
             ${game.steamRatingPercent > 0 ? `
                 <div class="mt-2 flex items-center gap-2 text-xs">
-                    <span class="text-slate-400">Steam:</span>
-                    <span class="font-semibold text-indigo-400">${game.steamRatingPercent}%</span>
-                    <span class="text-slate-500">(${parseInt(game.steamRatingCount).toLocaleString()} avaliações)</span>
+                    <span class="text-gray-500">Steam:</span>
+                    <span class="font-semibold text-indigo-600">${game.steamRatingPercent}%</span>
+                    <span class="text-gray-400">(${parseInt(game.steamRatingCount).toLocaleString()} avaliações)</span>
                 </div>
             ` : ''}
         </div>

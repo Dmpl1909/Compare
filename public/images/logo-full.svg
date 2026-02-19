@@ -1,0 +1,19 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Game controller icon -->
+  <circle cx="20" cy="20" r="15" fill="#E8EEF7"/>
+  <path d="M20 14C17.24 14 15 16.24 15 19V20C15 20.55 14.55 21 14 21C13.45 21 13 20.55 13 20V19C13 15.13 16.13 12 20 12C23.87 12 27 15.13 27 19V20C27 20.55 26.55 21 26 21C25.45 21 25 20.55 25 20V19C25 16.24 22.76 14 20 14Z" fill="#4F7FFF"/>
+  <rect x="16.5" y="17" width="1" height="3" rx="0.3" fill="white"/>
+  <rect x="15.5" y="17.5" width="3" height="1" rx="0.3" fill="white"/>
+  <circle cx="24" cy="17.5" r="0.8" fill="white"/>
+  <circle cx="23" cy="19" r="0.8" fill="white"/>
+  
+  <!-- Euro symbol -->
+  <circle cx="22" cy="24" r="3" fill="#00C853"/>
+  <text x="22" y="27" font-family="Arial, sans-serif" font-size="5" font-weight="bold" fill="white" text-anchor="middle">€</text>
+  
+  <!-- Text "Compare" -->
+  <text x="45" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1F2937">Compare</text>
+  
+  <!-- Text "Preços de Jogos" -->
+  <text x="45" y="38" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">Preços de Jogos</text>
+</svg>
