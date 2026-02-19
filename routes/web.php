@@ -17,9 +17,10 @@ Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/jogos', [ProductController::class, 'catalog'])->name('products.catalog');
 Route::get('/produtos/{product}', [ProductController::class, 'show'])->name('products.show');
 
-// Contato
-Route::get('/contato', [ContactController::class, 'index'])->name('contact');
-Route::post('/contato', [ContactController::class, 'send'])->name('contact.send');
+Route::get('/contacto', [ContactController::class, 'show'])->name('contact.form');
+Route::post('/contacto', [ContactController::class, 'submit'])->name('contact.submit');
+Route::view('/termos', 'legal.terms')->name('terms');
+Route::view('/politica-privacidade', 'legal.privacy')->name('privacy');
 
 // Rotas para jogos em promoção (CheapShark API)
 Route::get('/jogos/promocoes', [GameController::class, 'index'])->name('games.deals');
@@ -60,3 +61,5 @@ Route::middleware(['auth', 'role:gestor,admin'])->prefix('gestao')->name('manage
     Route::put('/utilizadores/{user}', [ManageUserController::class, 'update'])->name('users.update');
     Route::delete('/utilizadores/{user}', [ManageUserController::class, 'destroy'])->name('users.destroy');
 });
+
+Route::fallback(fn () => redirect()->route('home'));
