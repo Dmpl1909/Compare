@@ -73,7 +73,7 @@ class GameRoutesTest extends TestCase
     {
         $response = $this->get('/jogos-inexistente');
 
-        $response->assertStatus(404);
+        $response->assertRedirect(route('home'));
     }
 
     /**

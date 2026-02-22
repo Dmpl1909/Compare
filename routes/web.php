@@ -14,7 +14,8 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ProductController::class, 'home'])->name('home');
-Route::get('/jogos', [ProductController::class, 'catalog'])->name('products.catalog');
+Route::get('/jogos', [GameController::class, 'index'])->name('games.index');
+Route::get('/catalogo', [ProductController::class, 'catalog'])->name('products.catalog');
 Route::get('/produtos/{product}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/contacto', [ContactController::class, 'show'])->name('contact.form');
