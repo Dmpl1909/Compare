@@ -15,8 +15,8 @@
         <div class="space-y-2">
             <label class="text-sm font-medium text-slate-300">Foto de perfil</label>
             <div class="flex items-center gap-4">
-                @if($user->avatar)
-                    <img id="avatar-preview" src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="h-14 w-14 rounded-full object-cover border border-slate-700">
+                @if($user->avatar_url)
+                    <img id="avatar-preview" src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="h-14 w-14 rounded-full object-cover border border-slate-700">
                 @else
                     <div id="avatar-preview" class="h-14 w-14 rounded-full bg-emerald-700 flex items-center justify-center text-slate-50 text-lg font-bold border border-slate-700">
                         {{ strtoupper(substr($user->name, 0, 1)) }}

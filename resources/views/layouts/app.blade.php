@@ -28,8 +28,8 @@
                 @endauth
                 @auth
                     <div class="relative flex items-center gap-2">
-                        @if(auth()->user()->avatar)
-                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="h-7 w-7 rounded-full object-cover border border-slate-700">
+                        @if(auth()->user()->avatar_url)
+                            <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="h-7 w-7 rounded-full object-cover border border-slate-700">
                         @else
                             <span class="flex h-7 w-7 items-center justify-center rounded-full border border-slate-700 bg-slate-800 text-xs font-semibold text-emerald-300">
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}

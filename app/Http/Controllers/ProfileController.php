@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -39,11 +40,17 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
-            // Remover avatar antigo se existir
-            if ($user->avatar && \Storage::exists('public/' . $user->avatar)) {
-                \Storage::delete('public/' . $user->avatar);
+            $oldAvatarPath = $this->normalizeAvatarPath($user->avatar);
+
+            if ($oldAvatarPath && Storage::disk('public')->exists($oldAvatarPath)) {
+                Storage::disk('public')->delete($oldAvatarPath);
             }
-            
+
+            $legacyAvatar = public_path('avatars/' . basename((string) $user->avatar));
+            if (is_file($legacyAvatar)) {
+                @unlink($legacyAvatar);
+            }
+
             $path = $request->file('avatar')->store('avatars', 'public');
             $user->avatar = $path;
         }
@@ -51,5 +58,28 @@ class ProfileController extends Controller
         $user->save();
 
         return back()->with('status', 'Perfil atualizado com sucesso.');
+    }
+
+    private function normalizeAvatarPath(?string $avatar): ?string
+    {
+        if (! $avatar) {
+            return null;
+        }
+
+        $avatar = trim($avatar);
+
+        if ($avatar === '') {
+            return null;
+        }
+
+        if (str_starts_with($avatar, 'avatars/')) {
+            return $avatar;
+        }
+
+        if (str_contains($avatar, '/')) {
+            return ltrim($avatar, '/');
+        }
+
+        return 'avatars/' . $avatar;
     }
 }
