@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Models\Favorite;
 use App\Models\PriceAlert;
 
@@ -24,8 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'role',
-        'avatar',
         'password',
+        'avatar',
     ];
 
     /**
@@ -71,32 +71,24 @@ class User extends Authenticatable
         return $this->hasMany(PriceAlert::class);
     }
 
-    public function getAvatarUrlAttribute(): ?string
+    public function getAvatarUrlAttribute(): string
     {
-        if (! $this->avatar) {
-            return null;
+        $defaultAvatar = asset('avatars/default-avatar.svg');
+
+        if (blank($this->avatar)) {
+            return $defaultAvatar;
         }
 
-        $path = trim($this->avatar);
-
-        if ($path === '') {
-            return null;
+        if (Str::startsWith($this->avatar, ['http://', 'https://', '//', 'data:'])) {
+            return $this->avatar;
         }
 
-        if (! str_starts_with($path, 'avatars/') && ! str_contains($path, '/')) {
-            $path = 'avatars/' . $path;
+        $avatarPath = ltrim($this->avatar, '/');
+
+        if (! file_exists(public_path($avatarPath))) {
+            return $defaultAvatar;
         }
 
-        if (Storage::disk('public')->exists($path)) {
-            return Storage::disk('public')->url($path);
-        }
-
-        $legacyFilename = basename($this->avatar);
-        $legacyPath = public_path('avatars/' . $legacyFilename);
-        if (is_file($legacyPath)) {
-            return asset('avatars/' . $legacyFilename);
-        }
-
-        return asset('storage/' . ltrim($path, '/'));
+        return asset($avatarPath);
     }
 }

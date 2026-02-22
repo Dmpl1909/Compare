@@ -29,6 +29,7 @@
                     <p class="mt-2 text-xs text-slate-500">Ofertas: {{ $product->offers()->count() }}</p>
                     <div class="mt-3 flex gap-2 text-xs text-slate-300">
                         <a href="{{ route('products.show', $product) }}" class="rounded-full border border-indigo-400 px-3 py-1 hover:bg-indigo-500 hover:text-slate-900">Ver público</a>
+                        <a href="{{ route('manage.products.edit', $product) }}" class="rounded-full border border-cyan-400 px-3 py-1 hover:bg-cyan-500 hover:text-slate-900">Editar</a>
                         <form action="{{ route('manage.products.destroy', $product) }}" method="POST" onsubmit="return confirm('Eliminar este jogo?');">
                             @csrf
                             @method('DELETE')

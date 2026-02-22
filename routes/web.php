@@ -17,7 +17,6 @@ Route::get('/', [ProductController::class, 'home'])->name('home');
 Route::get('/jogos', [ProductController::class, 'catalog'])->name('products.catalog');
 Route::get('/produtos/{product}', [ProductController::class, 'show'])->name('products.show');
 
-// Contactos
 Route::get('/contacto', [ContactController::class, 'show'])->name('contact.form');
 Route::post('/contacto', [ContactController::class, 'submit'])->name('contact.submit');
 Route::view('/termos', 'legal.terms')->name('terms');
@@ -53,6 +52,8 @@ Route::middleware(['auth', 'role:gestor,admin'])->prefix('gestao')->name('manage
     Route::get('/produtos', [ManageProductController::class, 'index'])->name('products.index');
     Route::get('/produtos/criar', [ManageProductController::class, 'create'])->name('products.create');
     Route::post('/produtos', [ManageProductController::class, 'store'])->name('products.store');
+    Route::get('/produtos/{product}/editar', [ManageProductController::class, 'edit'])->name('products.edit');
+    Route::put('/produtos/{product}', [ManageProductController::class, 'update'])->name('products.update');
     Route::delete('/produtos/{product}', [ManageProductController::class, 'destroy'])->name('products.destroy');
     
     // Gestão de utilizadores (gestor e admin podem visualizar, apenas admin pode alterar permissões)

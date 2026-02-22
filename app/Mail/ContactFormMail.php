@@ -13,14 +13,14 @@ class ContactFormMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public array $contactData;
+    public $data;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(array $contactData)
+    public function __construct($data)
     {
-        $this->contactData = $contactData;
+        $this->data = $data;
     }
 
     /**
@@ -29,8 +29,8 @@ class ContactFormMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contacto: ' . $this->contactData['subject'],
-            replyTo: $this->contactData['email'],
+            subject: 'Nova Mensagem de Contato: ' . $this->data['subject'],
+            replyTo: [$this->data['email']],
         );
     }
 

@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
     public function show()
     {
-        return view('contact.form');
+        return view('contact');
     }
 
     public function submit(Request $request)
@@ -23,7 +23,8 @@ class ContactController extends Controller
         ]);
 
         // Enviar email
-        Mail::to(config('mail.from.address'))->send(new ContactFormMail($validated));
+        Mail::to(config('mail.from.address'))
+            ->send(new ContactFormMail($validated));
 
         return back()->with('status', 'Mensagem enviada com sucesso! Responderemos em breve.');
     }

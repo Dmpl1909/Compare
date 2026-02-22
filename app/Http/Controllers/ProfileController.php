@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -29,7 +28,7 @@ class ProfileController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-            'avatar' => ['nullable', 'image', 'max:2048'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
         $user->name = $validated['name'];
@@ -40,46 +39,20 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
-            $oldAvatarPath = $this->normalizeAvatarPath($user->avatar);
-
-            if ($oldAvatarPath && Storage::disk('public')->exists($oldAvatarPath)) {
-                Storage::disk('public')->delete($oldAvatarPath);
+            // Apagar avatar antigo se existir
+            if ($user->avatar && file_exists(public_path($user->avatar))) {
+                unlink(public_path($user->avatar));
             }
 
-            $legacyAvatar = public_path('avatars/' . basename((string) $user->avatar));
-            if (is_file($legacyAvatar)) {
-                @unlink($legacyAvatar);
-            }
-
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $path;
+            // Guardar novo avatar
+            $file = $request->file('avatar');
+            $filename = 'avatar_' . $user->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('avatars'), $filename);
+            $user->avatar = 'avatars/' . $filename;
         }
 
         $user->save();
 
         return back()->with('status', 'Perfil atualizado com sucesso.');
-    }
-
-    private function normalizeAvatarPath(?string $avatar): ?string
-    {
-        if (! $avatar) {
-            return null;
-        }
-
-        $avatar = trim($avatar);
-
-        if ($avatar === '') {
-            return null;
-        }
-
-        if (str_starts_with($avatar, 'avatars/')) {
-            return $avatar;
-        }
-
-        if (str_contains($avatar, '/')) {
-            return ltrim($avatar, '/');
-        }
-
-        return 'avatars/' . $avatar;
     }
 }
