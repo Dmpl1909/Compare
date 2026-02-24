@@ -9,7 +9,7 @@
         </div>
 
         <div class="flex gap-2">
-            <select id="sortBy" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" style="color: #0f172a;">
+            <select id="sortBy" class="rounded-2xl border border-teal-200 bg-gradient-to-r from-teal-50 to-cyan-50 px-4 py-2 text-sm text-slate-900 shadow-lg shadow-teal-900/10 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20" style="color: #0f172a;">
                 <option value="Recent">Mais Recentes</option>
                 <option value="Deal Rating">Melhor Avaliação</option>
                 <option value="Price">Menor Preço</option>
@@ -31,7 +31,7 @@
     </div>
 
     <div id="loadMoreContainer" class="hidden mt-8 text-center">
-        <button id="loadMoreBtn" class="rounded-lg bg-gray-100 px-6 py-3 font-semibold text-slate-900 transition hover:bg-gray-200" style="color: #0f172a;">
+        <button id="loadMoreBtn" class="rounded-2xl border border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50 px-6 py-3 font-semibold text-slate-900 shadow-lg shadow-purple-900/10 transition hover:border-purple-400 hover:text-purple-700" style="color: #0f172a;">
             Carregar Mais
         </button>
     </div>
