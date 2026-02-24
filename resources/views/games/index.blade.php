@@ -9,14 +9,14 @@
         </div>
 
         <div class="flex gap-2">
-            <select id="sortBy" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <select id="sortBy" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" style="color: #0f172a;">
                 <option value="Recent">Mais Recentes</option>
                 <option value="Deal Rating">Melhor Avaliação</option>
                 <option value="Price">Menor Preço</option>
                 <option value="Savings">Maior Desconto</option>
                 <option value="Metacritic">Metacritic</option>
             </select>
-            <button id="refreshBtn" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold transition hover:bg-indigo-700">
+            <button id="refreshBtn" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700">
                 Atualizar
             </button>
         </div>
@@ -26,12 +26,12 @@
         <div class="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-indigo-600"></div>
     </div>
 
-    <div id="gamesGrid" class="hidden grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div id="gamesGrid" class="hidden grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         <!-- Os jogos serão carregados aqui via JavaScript -->
     </div>
 
     <div id="loadMoreContainer" class="hidden mt-8 text-center">
-        <button id="loadMoreBtn" class="rounded-lg bg-gray-100 px-6 py-3 font-semibold transition hover:bg-gray-200">
+        <button id="loadMoreBtn" class="rounded-lg bg-gray-100 px-6 py-3 font-semibold text-slate-900 transition hover:bg-gray-200" style="color: #0f172a;">
             Carregar Mais
         </button>
     </div>
@@ -115,7 +115,7 @@ async function loadGames(page = 0, append = false) {
 // Criar card de jogo
 function createGameCard(game) {
     const card = document.createElement('div');
-    card.className = 'group relative overflow-hidden rounded-lg border border-gray-200 bg-white transition hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/10';
+    card.className = 'group relative overflow-hidden rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-slate-950 via-sky-950 to-teal-950 p-4 sm:p-5 transition hover:-translate-y-0.5 hover:border-cyan-400/40 hover:shadow-2xl hover:shadow-cyan-900/30';
     
     const savings = Math.round(game.savings);
     const normalPrice = parseFloat(game.normalPrice);
@@ -124,44 +124,32 @@ function createGameCard(game) {
     const storeImage = stores[game.storeID]?.images?.logo || '';
 
     card.innerHTML = `
-        <div class="aspect-video overflow-hidden bg-gray-100">
-            <img src="${game.thumb}" alt="${game.title}" class="h-full w-full object-cover transition group-hover:scale-105" onerror="this.src='https://via.placeholder.com/300x200?text=${encodeURIComponent(game.title)}'">
+        <div class="relative mb-5 aspect-video overflow-hidden rounded-2xl bg-slate-900">
+            <img src="${game.thumb}" alt="${game.title}" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" onerror="this.src='https://via.placeholder.com/600x338?text=${encodeURIComponent(game.title)}'">
+            ${savings > 0 ? `<span class="absolute right-3 top-3 shrink-0 rounded-lg bg-emerald-500 px-2.5 py-1 text-xs font-bold text-white shadow">-${savings}%</span>` : ''}
         </div>
-        <div class="p-4">
-            <div class="mb-2 flex items-start justify-between gap-2">
-                <h3 class="line-clamp-2 text-sm font-semibold leading-tight">${game.title}</h3>
-                ${savings > 0 ? `<span class="shrink-0 rounded bg-emerald-600 px-2 py-1 text-xs font-bold text-white">-${savings}%</span>` : ''}
-            </div>
-            
-            <div class="mb-3 flex items-center gap-2 text-xs text-gray-500">
-                ${storeImage ? `<img src="https://www.cheapshark.com${storeImage}" alt="${storeName}" class="h-4" onerror="this.style.display='none'">` : ''}
-                <span>${storeName}</span>
-            </div>
+        <div class="space-y-4 text-slate-100">
+            <h3 class="line-clamp-2 text-2xl font-bold leading-tight">${game.title}</h3>
 
-            <div class="flex items-center justify-between">
+            <div class="h-px bg-white/10"></div>
+
+            <div class="flex items-end justify-between gap-3">
                 <div>
-                    ${normalPrice > salePrice ? `<div class="text-xs text-gray-500 line-through">€${normalPrice.toFixed(2)}</div>` : ''}
-                    <div class="text-lg font-bold text-emerald-600">€${salePrice.toFixed(2)}</div>
+                    <p class="text-sm text-slate-400">Melhor preço</p>
+                    <p class="text-4xl font-extrabold leading-none text-emerald-400">€${salePrice.toFixed(2)}</p>
+                    <div class="mt-1 flex items-center gap-2 text-base text-slate-400">
+                        <span>em ${storeName}</span>
+                        ${storeImage ? `<img src="https://www.cheapshark.com${storeImage}" alt="${storeName}" class="h-4" onerror="this.style.display='none'">` : ''}
+                    </div>
+                    ${normalPrice > salePrice ? `<p class="mt-1 text-sm text-slate-500 line-through">€${normalPrice.toFixed(2)}</p>` : ''}
                 </div>
-                <a href="https://www.cheapshark.com/redirect?dealID=${game.dealID}" target="_blank" class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700">
-                    Ver Oferta
+
+                <a href="https://www.cheapshark.com/redirect?dealID=${game.dealID}" target="_blank" class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-900/40 transition hover:scale-105 hover:from-emerald-400 hover:to-teal-400" aria-label="Ver oferta de ${game.title}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="h-6 w-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6" />
+                    </svg>
                 </a>
             </div>
-
-            ${game.metacriticScore > 0 ? `
-                <div class="mt-3 flex items-center gap-2 text-xs">
-                    <span class="text-gray-500">Metacritic:</span>
-                    <span class="font-semibold ${game.metacriticScore >= 75 ? 'text-emerald-600' : game.metacriticScore >= 50 ? 'text-yellow-500' : 'text-red-500'}">${game.metacriticScore}</span>
-                </div>
-            ` : ''}
-
-            ${game.steamRatingPercent > 0 ? `
-                <div class="mt-2 flex items-center gap-2 text-xs">
-                    <span class="text-gray-500">Steam:</span>
-                    <span class="font-semibold text-indigo-600">${game.steamRatingPercent}%</span>
-                    <span class="text-gray-400">(${parseInt(game.steamRatingCount).toLocaleString()} avaliações)</span>
-                </div>
-            ` : ''}
         </div>
     `;
 
