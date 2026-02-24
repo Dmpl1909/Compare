@@ -21,7 +21,7 @@
                         @method('DELETE')
                     @endif
                     <button type="submit" class="rounded-2xl border border-pink-500/50 bg-gradient-to-r from-pink-600 to-rose-600 px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-pink-900/30 transition hover:from-pink-500 hover:to-rose-500">
-                        {{ $isFavorite ? 'Remover favorito' : 'Nos Favoritos' }}
+                        {{ $isFavorite ? 'Remover favorito' : 'Adicionar aos Favoritos' }}
                     </button>
                 </form>
                 <form action="{{ $alert ? route('alerts.destroy', $product) : route('alerts.store', $product) }}" method="POST" class="flex gap-2">
@@ -55,7 +55,7 @@
                             </div>
                             <div class="flex items-center gap-4">
                                 <span class="text-2xl font-semibold text-emerald-400">€{{ number_format($offer->price, 2, ',', '.') }}</span>
-                                <a href="{{ $offer->url }}" target="_blank" class="rounded-2xl border border-indigo-400 bg-indigo-600 px-4 py-2 text-sm text-white transition hover:bg-indigo-500">Ver na fonte</a>
+                                <a href="{{ $offer->url }}" target="_blank" class="rounded-2xl border border-indigo-400 bg-indigo-600 px-4 py-2 text-sm text-white transition hover:bg-indigo-500">Ver na loja</a>
                             </div>
                         </div>
                     @endforeach
