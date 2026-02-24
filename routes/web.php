@@ -45,6 +45,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/favorites/{product}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
     Route::post('/alerts/{product}', [PriceAlertController::class, 'store'])->name('alerts.store');
     Route::delete('/alerts/{product}', [PriceAlertController::class, 'destroy'])->name('alerts.destroy');
+    
+    // Rota temporária para testar notificações de preço
+    Route::get('/test-email', function () {
+        $user = auth()->user();
+        $priceAlert = $user->priceAlerts()->with('product')->first();
+        
+        if (!$priceAlert) {
+            return 'Nenhum alerta de preço encontrado. Crie um alerta primeiro.';
+        }
+        
+        // Simular um preço baixo para testar
+        $testPrice = $priceAlert->target_price - 5;
+        
+        try {
+            \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\PriceAlertMail($priceAlert, $testPrice));
+            return 'Email de teste enviado com sucesso para ' . $user->email;
+        } catch (\Exception $e) {
+            return 'Erro ao enviar email: ' . $e->getMessage();
+        }
+    })->name('test.email');
 });
 
 // Gestão (gestor e admin)
