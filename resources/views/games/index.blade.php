@@ -42,7 +42,7 @@ let currentPage = 0;
 let currentSort = 'Recent';
 let stores = {};
 
-// Carregar lojas
+// Carregar fontes
 async function loadStores() {
     try {
         const response = await fetch('/api/games/stores');
@@ -51,7 +51,7 @@ async function loadStores() {
             stores[store.storeID] = store;
         });
     } catch (error) {
-        console.error('Erro ao carregar lojas:', error);
+        console.error('Erro ao carregar fontes:', error);
     }
 }
 
@@ -120,7 +120,7 @@ function createGameCard(game) {
     const savings = Math.round(game.savings);
     const normalPrice = parseFloat(game.normalPrice);
     const salePrice = parseFloat(game.salePrice);
-    const storeName = stores[game.storeID]?.storeName || 'Loja Desconhecida';
+    const storeName = stores[game.storeID]?.storeName || 'Fonte Desconhecida';
     const storeImage = stores[game.storeID]?.images?.logo || '';
 
     card.innerHTML = `

@@ -37,7 +37,7 @@
             <h2 class="text-lg font-semibold">Oferta inicial (opcional)</h2>
             <div class="grid gap-4 md:grid-cols-2">
                 <div class="space-y-2">
-                    <label class="text-sm text-slate-300" for="source_name">Loja (texto)</label>
+                    <label class="text-sm text-slate-300" for="source_name">Fonte (texto)</label>
                     <input id="source_name" name="source_name" value="{{ old('source_name') }}" class="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-50 focus:border-indigo-500 focus:outline-none" placeholder="Ex: Game Galaxy" />
                 </div>
                 <div class="space-y-2">
@@ -49,11 +49,11 @@
                     <input id="availability" name="availability" value="{{ old('availability') }}" class="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-50 focus:border-indigo-500 focus:outline-none" />
                 </div>
                 <div class="space-y-2 md:col-span-2">
-                    <label class="text-sm text-slate-300" for="offer_url">Link para a loja</label>
+                    <label class="text-sm text-slate-300" for="offer_url">Link para a fonte</label>
                     <input id="offer_url" name="offer_url" value="{{ old('offer_url') }}" class="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-50 focus:border-indigo-500 focus:outline-none" />
                 </div>
             </div>
-            <p class="text-xs text-slate-500">Se não preencheres, o jogo é criado sem oferta inicial. Se preencheres preço, indica também loja e link.</p>
+            <p class="text-xs text-slate-500">Se não preencheres, o jogo é criado sem oferta inicial. Se preencheres preço, indica também fonte e link.</p>
         </div>
 
         <div class="flex gap-3">

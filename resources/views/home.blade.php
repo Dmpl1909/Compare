@@ -6,6 +6,9 @@
     <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-emerald-900/30 via-teal-900/30 to-slate-900/50 p-6 sm:p-8 md:p-12 lg:p-16 shadow-2xl shadow-emerald-500/10">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20"></div>
         <div class="relative z-10 max-w-4xl">
+            <div class="mb-6 sm:mb-8">
+                <img src="{{ asset('images/logo_compare.png') }}" alt="Compare Logo" class="h-16 sm:h-20 md:h-24 w-auto">
+            </div>
 
             <h1 class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight">
                 Encontre os <span class="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent animate-float">Melhores Preços</span><br/>

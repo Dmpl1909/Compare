@@ -36,15 +36,10 @@
         <h2 class="mb-6 text-2xl font-bold text-slate-100">Ações rápidas</h2>
         
         <div class="space-y-4">
-            <a href="{{ route('home') }}" class="block rounded-xl bg-slate-800/50 border border-slate-700 p-4 transition hover:bg-slate-700/50">
-                <p class="mb-1 font-semibold text-indigo-300">Ver catálogo</p>
-                <p class="text-sm text-slate-400">Explora todos os jogos disponíveis</p>
-            </a>
-            
             @if($user->isAdmin() || $user->isManager())
                 <a href="{{ route('manage.products.index') }}" class="block rounded-xl bg-slate-800/50 border border-slate-700 p-4 transition hover:bg-slate-700/50">
                     <p class="mb-1 font-semibold text-purple-300">Gerir jogos</p>
-                    <p class="text-sm text-slate-400">Adiciona ou remove jogos do catálogo</p>
+                    <p class="text-sm text-slate-400">Adiciona, remove jogos e edita lojas do catálogo</p>
                 </a>
             @endif
             
@@ -92,7 +87,7 @@
                 <div class="flex gap-4">
                     <div class="mt-1 h-2 w-2 shrink-0 rounded-full bg-purple-400"></div>
                     <p class="text-sm text-slate-300">
-                        Revê o catálogo e adiciona novas ofertas
+                        Revê o catálogo, adiciona novas ofertas e gere lojas
                     </p>
                 </div>
             @endif

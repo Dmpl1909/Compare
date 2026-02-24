@@ -55,7 +55,7 @@
                             </div>
                             <div class="flex items-center gap-4">
                                 <span class="text-2xl font-semibold text-emerald-400">€{{ number_format($offer->price, 2, ',', '.') }}</span>
-                                <a href="{{ $offer->url }}" target="_blank" class="rounded-2xl border border-indigo-400 bg-indigo-600 px-4 py-2 text-sm text-white transition hover:bg-indigo-500">Ver na loja</a>
+                                <a href="{{ $offer->url }}" target="_blank" class="rounded-2xl border border-indigo-400 bg-indigo-600 px-4 py-2 text-sm text-white transition hover:bg-indigo-500">Ver na fonte</a>
                             </div>
                         </div>
                     @endforeach

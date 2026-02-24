@@ -5,7 +5,7 @@
     <div>
         <p class="text-sm text-slate-400">Gestão de Jogos</p>
         <h1 class="text-3xl font-semibold tracking-tight">Editar jogo</h1>
-        <p class="text-slate-300">Atualiza as informações do jogo {{ $product->name }}.</p>
+        <p class="text-slate-300">Atualiza as informações do jogo {{ $product->name }} e gere lojas onde está disponível.</p>
     </div>
 
     @if($errors->any())
@@ -73,7 +73,7 @@
                         </div>
                     @endforeach
                 </div>
-                <p class="text-xs text-slate-500">Para gerir ofertas, use a interface de scraping ou adicione manualmente pela base de dados.</p>
+                <p class="text-xs text-slate-500">Disponível para mais lojas. Para gerir ofertas, use a interface de scraping ou adicione manualmente pela base de dados.</p>
             </div>
         @endif
 

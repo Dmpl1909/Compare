@@ -38,9 +38,9 @@ class ManageProductController extends Controller
             'availability' => ['nullable', 'string', 'max:255'],
             'offer_url' => ['nullable', 'url', 'max:2048', 'required_with:price,source_name'],
         ], [
-            'source_name.required_with' => 'Indica o nome da loja quando adicionas preço ou link.',
-            'price.required_with' => 'O preço é obrigatório quando preenches loja ou link.',
-            'offer_url.required_with' => 'O link da oferta é obrigatório quando preenches loja ou preço.',
+            'source_name.required_with' => 'Indica o nome da fonte quando adicionas preço ou link.',
+            'price.required_with' => 'O preço é obrigatório quando preenches fonte ou link.',
+            'offer_url.required_with' => 'O link da oferta é obrigatório quando preenches fonte ou preço.',
         ]);
 
         $product = Product::create([
